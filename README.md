@@ -1,1 +1,1 @@
-# My DevOps Courses
+# My DevOps Netology Courses
