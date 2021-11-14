@@ -35,6 +35,7 @@ getconf ARG_MAX
 11. Конструкция [[ -d /tmp ]] определяет, существует ли файл tmp и является ли он каталогом.
 
 13. Добавление пути bash is /tmp/new_path_directory/bash первым в список:
+```
 vagrant@vagrant:~/tmp$ mkdir /tmp/new_path_directory
 vagrant@vagrant:~/tmp$ cp /usr/bin/bash /tmp/new_path_directory/
 vagrant@vagrant:~/tmp$ PATH=/tmp/new_path_directory/:$PATH
@@ -42,5 +43,6 @@ vagrant@vagrant:~/tmp$ type -a bash
 bash is /tmp/new_path_directory/bash
 bash is /usr/bin/bash
 bash is /bin/bash
+```
 
 13. Команда at используется для назначения одноразового задания на заданное время, а команда batch — для назначения группы одноразовых задач. 
