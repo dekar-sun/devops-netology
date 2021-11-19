@@ -25,6 +25,7 @@ openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_CLOEXEC) = 3
 openat(AT_FDCWD, "/usr/lib/python3.8", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
 ```
 и т.д.
+
 6. Судя по strace ```uname -a``` использует системный вызов uname. Цитата из man: "Part of the utsname information is also accessible via /proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}."
 Таким образом информацию о версии ядра и релизе ОС можно узнать из /proc/sys/kernel/osrelease и /proc/sys/kernel/version соответственно.
 7. При использовании "&&", в случае если первая команда завершилась с кодом отличным от "0" вторая команда не будет выполнена.
