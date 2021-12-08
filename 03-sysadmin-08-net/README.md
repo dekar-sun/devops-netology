@@ -1,8 +1,11 @@
 1. Подключаемся к route-views.routeviews.org:
 
 <details>
-  <summary>Console</summary>
-    route-views>show ip route 5.167.196.122   
+<summary>CLICK ME</summary>
+<p>
+
+```commandline
+route-views>show ip route 5.167.196.122   
 Routing entry for 5.167.196.0/22
   Known via "bgp 6447", distance 20, metric 0
   Tag 6939, type external
@@ -180,6 +183,8 @@ Paths: (24 available, best #24, table default)
       Origin IGP, localpref 100, valid, external, best
       path 7FE0509154E8 RPKI State not found
       rx pathid: 0, tx pathid: 0x0
+```     
+</p>
 </details>
 
 2. Создаём dummy интерфейс:
