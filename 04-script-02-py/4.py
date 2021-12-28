@@ -7,7 +7,7 @@ wait = 5 #pause between verifications in seconds
 
 hosts = {'drive.google.com':'1.1.1.1', 'mail.google.com':'1.1.1.1', 'google.com':'1.1.1.1'}
 
-while 1==1 :
+while True:
 
   for x in hosts:
     ip = socket.gethostbyname(x)
