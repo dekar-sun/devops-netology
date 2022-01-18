@@ -1,0 +1,22 @@
+---
+- name: Create test site
+  hosts: clients
+  become: yes
+  vars:
+          source_file: ./index.html
+          destin_file: /var/www/html
+  tasks:
+          - name: Install httpd
+            yum: name=httpd state=installed
+
+          - name:
+            copy: src={{ source_file }}  dest={{ destin_file  }} mode=0555
+            notify: Restart httpd
+
+          - name: Start httpd and enable on the every boot
+            service: name=httpd state=started enabled=yes
+
+  handlers:
+
+          - name: Restart httpd
+            service: name=httpd state=restarted
