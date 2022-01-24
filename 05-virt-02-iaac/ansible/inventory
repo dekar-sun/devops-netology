@@ -1,0 +1,5 @@
+[nodes:children]
+vagrant_vms
+
+[vagrant_vms]
+ubuntu-server01 ansible_host=127.0.0.1 ansible_port=2201

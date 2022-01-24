@@ -1,0 +1,53 @@
+---
+- name: Create test site
+  hosts: clients
+  become: yes
+  vars:
+    source_file: ./web/index.html
+    destin_file: /var/www/html
+
+  tasks:
+  - name: Check Linux Version
+    debug: var=ansible_os_family
+
+  - block: #for RedHat
+
+          - name: Install httpd for RedHat
+            package:
+              name: httpd
+              state: latest
+
+          - name: Copy Home Page file to Web Server
+            copy: src={{ source_file }}  dest={{ destin_file  }} mode=0555
+            notify: Restart httpd for RedHat
+
+          - name: Start httpd and enable on the every boot for RedHat
+            service: name=httpd state=started enabled=yes
+
+    when: ansible_os_family == "RedHat"
+
+  - block: #for Debian
+
+          - name: Install httpd for Debian
+            package:
+              name: apache2
+              state: latest
+
+          - name: Copy Home Page file to Web Server
+            copy: src={{ source_file }}  dest={{ destin_file  }} mode=0555
+            notify: Restart httpd for Debian
+
+
+          - name: Start httpd and enable on the every boot for Debian
+            service: name=apache2 state=started enabled=yes
+
+    when: ansible_os_family == "Debian"
+
+
+    handlers:
+
+          - name: Restart httpd for RedHat
+            service: name=httpd state=restarted
+
+          - name: Restart httpd for Debian
+            service: name=apache2 state=restarted
