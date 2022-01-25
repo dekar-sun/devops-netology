@@ -1,5 +1,5 @@
 ---
-- name: Test Connection
+- name: Ansible Connection
   hosts: all
   become: yes
   tasks:
