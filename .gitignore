@@ -1,0 +1,4 @@
+key.json
+.idea
+.terraform
+.terraform.lock.hcl
