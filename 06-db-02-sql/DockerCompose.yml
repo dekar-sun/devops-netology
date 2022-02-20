@@ -1,0 +1,14 @@
+version: "2.1"
+services:
+  postgres:
+    image: postgres:12.0
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Qwerty12345"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - vol_backup:/backup
+      - vol_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
