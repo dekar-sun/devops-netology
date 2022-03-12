@@ -35,7 +35,7 @@
 #### Docker manifest представлен в [Dockerfile](elk/Dockerfile):
 Образ запускался на macos с arm процессорром, поэтому архитектура elasticsearch была выбрана aarch64.
 Настройки elasticsearch представлены в файле [elasticsearch.yml](elk/elasticsearch.yml).
-Образ удалось загрузить на docker hub. Он доступен по [ссылке](https://hub.docker.com/layers/196987588/klauswoof/elasticsearch/7.17.1/images/sha256-e380362058a649180ce3be78c44c43101f33cae8b4ae9e9cd20e1b1b5083ef10?context=repo).
+Образ удалось загрузить на docker hub. Он доступен по [ссылке](https://hub.docker.com/layers/klauswoof/elasticsearch/7.17.1/images/sha256-8460b6776a69ad6faa5ee27cbceab0f39b9d86e29aeefe0f909b131e42df87e6?context=explore).
 
 Для запуска контейнера был составлен docker-compose file: [docker-compose.yml](elk/docker-compose.yml)
 Запускаем контейнер и проверяем elasticsearch:
