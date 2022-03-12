@@ -1,26 +1,33 @@
-FROM centos7
+FROM centos:centos7
 ENV PATH=/usr/lib:$PATH
 
-RUN rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-RUN echo "[elasticsearch]" >>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "name=Elasticsearch repository" >>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "baseurl=https://artifacts.elastic.co/packages/7.x/yum">>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "gpgcheck=1">>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch">>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "enabled=0">>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "autorefresh=1">>/etc/yum.repos.d/elasticsearch.repo &&\
-    echo "type=rpm-md">>/etc/yum.repos.d/elasticsearch.repo 
+#RUN yum install java-11-openjdk -y 
+RUN yum install wget -y 
+RUN yum install glibc -y
 
-RUN yum install -y --enablerepo=elasticsearch elasticsearch 
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.1-linux-aarch64.tar.gz \
+    && wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.1-linux-aarch64.tar.gz.sha512 
+RUN yum install perl-Digest-SHA -y 
+RUN shasum -a 512 -c elasticsearch-7.17.1-linux-aarch64.tar.gz.sha512 \ 
+    && tar -xzf elasticsearch-7.17.1-linux-aarch64.tar.gz \
+    && yum upgrade -y
     
-ADD elasticsearch.yml /etc/elasticsearch/
-RUN mkdir /usr/share/elasticsearch/snapshots &&\
-    chown elasticsearch:elasticsearch /usr/share/elasticsearch/snapshots
+RUN rm elasticsearch-7.17.1-linux-aarch64.tar.gz \
+    && rm elasticsearch-7.17.1-linux-aarch64.tar.gz.sha512
+    
+ADD elasticsearch.yml /elasticsearch-7.17.1/config/
+ENV ES_HOME=/elasticsearch-7.17.1
+RUN groupadd elasticsearch \
+    && useradd -g elasticsearch elasticsearch
+    
 RUN mkdir /var/lib/logs \
     && chown elasticsearch:elasticsearch /var/lib/logs \
     && mkdir /var/lib/data \
-    && chown elasticsearch:elasticsearch /var/lib/data
+    && chown elasticsearch:elasticsearch /var/lib/data \
+    && chown -R elasticsearch:elasticsearch /elasticsearch-7.17.1/
+RUN mkdir /elasticsearch-7.17.1/snapshots \
+    && chown elasticsearch:elasticsearch /elasticsearch-7.17.1/snapshots
     
 USER elasticsearch
 CMD ["/usr/sbin/init"]
-CMD ["/usr/share/elasticsearch/bin/elasticsearch"]
+CMD ["/elasticsearch-7.17.1/bin/elasticsearch"]
