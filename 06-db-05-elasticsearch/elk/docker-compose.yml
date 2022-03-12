@@ -1,0 +1,10 @@
+version: "2.1"
+
+services:
+  Elasticsearch:
+    image: klauswoof/elasticsearch:7.17.1
+    container_name: elasticsearch
+    restart: always
+    tty: true  
+    ports:
+      - "9200:9200"
