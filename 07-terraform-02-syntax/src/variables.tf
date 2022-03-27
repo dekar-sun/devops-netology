@@ -15,3 +15,8 @@ variable "yandex_folder_id" {
 variable "image_id" {
   default = "fd8q9honj0ga5pjdkk0u"
 }
+
+#
+variable "OAUTH" {
+  type = string
+}

@@ -25,6 +25,7 @@ resource "yandex_compute_instance" "vm01" {
   }
 
   metadata = {
-    ssh-keys = "cloud-user:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys           = "cloud-user:${file("~/.ssh/id_rsa.pub")}"
+    serial-port-enable = 1
   }
 }
